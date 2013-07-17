@@ -14,6 +14,9 @@ public interface IAZVDatensatz
 public int getPersonalNummer();
 public void setPersonalNummer(int personalNummer);
 
+public String getTeam();
+public void setTeam(String team);
+
 public Date getBerichtsMonat();
 public void setBerichtsMonat(Date berichtsMonat);
 

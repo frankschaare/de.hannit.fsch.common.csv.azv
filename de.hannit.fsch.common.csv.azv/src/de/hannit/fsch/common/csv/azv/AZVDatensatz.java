@@ -3,6 +3,7 @@
  */
 package de.hannit.fsch.common.csv.azv;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -11,15 +12,23 @@ import java.util.Date;
  */
 public class AZVDatensatz implements IAZVDatensatz
 {
+public static final int PERSONALNUMMER_VORSTAND = 120026;
+
 private	int personalNummer = 0;
+private String strTeam = null;
+private	int iTeam = 9;
 private Date berichtsMonat;
 private java.sql.Date berichtsMonatSQL;
 private String kostenStelle = null;
+private String kostenstellenBeschreibung = null;
 private String kostenTraeger = null;
+private String kostenTraegerBeschreibung = null;
 private	int prozentAnteil = 0;
 private String source = null;
-private boolean exists = false;
+private boolean existsMitarbeiter = false;
 private boolean mitarbeiterChecked = false;	
+
+private Calendar cal = Calendar.getInstance();
 
 	/**
 	 * 
@@ -33,17 +42,106 @@ private boolean mitarbeiterChecked = false;
 	public void setPersonalNummer(int personalNummer){this.personalNummer = personalNummer;}
 
 	public Date getBerichtsMonat(){return this.berichtsMonat;}
-	public void setBerichtsMonat(Date berichtsMonat){this.berichtsMonat = berichtsMonat;}
+	public void setBerichtsMonat(Date berichtsMonat)
+	{
+	this.berichtsMonat = berichtsMonat;
+	cal.setTime(berichtsMonat);
+	this.berichtsMonatSQL = new java.sql.Date(cal.getTimeInMillis());
+	}
 
 	public String getKostenstelle(){return this.kostenStelle;}
-	public void setKostenstelle(String kostenStelle){this.kostenStelle = kostenStelle;}
+	public String getKostenstellenBeschreibung(){return kostenstellenBeschreibung;}
+
+	public void setKostenstelle(String kostenStelle)
+	{
+		if (kostenStelle.length() > 0)
+		{
+			if (kostenStelle.contains(";"))
+			{
+			String[] parts = kostenStelle.split(";");
+			this.kostenStelle = parts[0];
+			this.kostenstellenBeschreibung = parts[1]; 
+			}
+			else
+			{
+			this.kostenStelle = kostenStelle;
+			}
+		}
+	}
 
 	public String getKostentraeger(){return this.kostenTraeger;}
-	public void setKostentraeger(String kostenTraeger){this.kostenTraeger = kostenTraeger;}
+	public String getKostenTraegerBeschreibung(){return kostenTraegerBeschreibung;}
+
+	public void setKostentraeger(String kostenTraeger)
+	{
+		if (kostenTraeger.length() > 0)
+		{
+			if (kostenTraeger.contains(";"))
+			{
+				String[] parts = kostenTraeger.split(";");
+				this.kostenTraeger = parts[0];
+				this.kostenTraegerBeschreibung = parts[1]; 
+			}
+			else
+			{
+				this.kostenTraeger = kostenTraeger;
+			}
+		}
+	}
 
 	public int getProzentanteil(){return this.prozentAnteil;}
 	public void setProzentanteil(int prozentAnteil){this.prozentAnteil = prozentAnteil;}
 
 	public String getSource(){return this.source;}
 	public void setSource(String source){this.source = source;}
+
+	@Override
+	public String getTeam(){return this.strTeam;}
+
+	@Override
+	public void setTeam(String team)
+	{
+	this.strTeam = this.strTeam != null ? this.strTeam : team;
+	setiTeam(team);
+	}
+
+	public int getiTeam(){return iTeam;}
+
+	public void setiTeam(String team)
+	{
+		if (team.length() > 0)
+		{
+		String[] parts = team.split(" ");	
+			try
+			{
+			this.iTeam = Integer.parseInt(parts[1]);
+			}
+			catch (NumberFormatException e)
+			{
+			e.printStackTrace();
+			this.iTeam = 9;
+			}
+		}
+		else 
+		{
+			if (personalNummer == PERSONALNUMMER_VORSTAND)
+			{
+			this.strTeam = "Vorstand";
+			this.iTeam = 0;
+			}	
+		}
+	}
+
+	public boolean existsMitarbeiter(){return existsMitarbeiter;}
+	public void setExistsMitarbeiter(boolean exists){this.existsMitarbeiter = exists;}
+
+	public boolean isMitarbeiterChecked(){return mitarbeiterChecked;}
+	public void setMitarbeiterChecked(boolean mitarbeiterChecked){this.mitarbeiterChecked = mitarbeiterChecked;}
+
+	public java.sql.Date getBerichtsMonatSQL()
+	{
+	return berichtsMonatSQL;
+	}
+	
+	
 }
