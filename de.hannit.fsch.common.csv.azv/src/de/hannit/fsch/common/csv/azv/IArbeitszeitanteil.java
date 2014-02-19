@@ -11,6 +11,8 @@ public Date getBerichtsMonat();
 public void setBerichtsMonat(Date berichtsMonat);
 
 public String getKostenstelleOderKostentraegerLang();
+public boolean isKostenstelle();
+public boolean isKostentraeger();
 
 public String getKostenstelle();
 public void setKostenstelle(String kostenStelle);

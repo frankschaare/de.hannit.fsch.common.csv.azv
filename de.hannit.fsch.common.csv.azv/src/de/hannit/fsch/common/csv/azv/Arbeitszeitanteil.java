@@ -17,7 +17,9 @@ private	String kostenStelle = null;
 private	String kostenStelleBezeichnung = null;
 private	String kostenTraeger = null;
 private	String kostenTraegerBezeichnung = null;
-private	int prozentAnteil = 0;	
+private	int prozentAnteil = 0;
+private double prozentanteilGemeinkosten = 0;
+private double anteilGemeinkosten = 0;
 /*
  * Der Anteil des Vollzeitäquivalents je Kostenstelle / Kostenträger
  * Wird festegelegt, wenn in der Klasse Mitarbeiter das Vollzeitäquivalent feststeht.
@@ -33,6 +35,31 @@ private double bruttoAufwand = 0;
 	
 	public double getBruttoAufwand() {return bruttoAufwand;}
 	public void setBruttoAufwand(double bruttoAufwand){this.bruttoAufwand = bruttoAufwand;}
+	
+	public double getAnteilGemeinkosten()
+	{
+		return anteilGemeinkosten;
+	}
+
+	public void setAnteilGemeinkosten(double anteilGemeinkosten)
+	{
+		this.anteilGemeinkosten = anteilGemeinkosten;
+	}
+
+	public double getProzentanteilGemeinkosten()
+	{
+	return prozentanteilGemeinkosten;
+	}
+
+	/*
+	 * Ermittelt den Anteil an den gesamten Gemeinkosten
+	 * Dabei ist anteilGemeinkosten:
+	 * 
+	 */
+	public void setProzentanteilGemeinkosten(double incoming)
+	{
+	this.prozentanteilGemeinkosten = incoming;
+	}
 
 	/* (non-Javadoc)
 	 * @see de.hannit.fsch.common.csv.azv.IArbeitszeitanteil#getBerichtsMonat()
@@ -106,5 +133,17 @@ private double bruttoAufwand = 0;
 
 	@Override
 	public void setKostenTraegerBezeichnung(String kostenTraegerBezeichnung) {this.kostenTraegerBezeichnung = kostenTraegerBezeichnung;}
+
+	@Override
+	public boolean isKostenstelle()
+	{
+	return this.kostenStelle != null ? true : false;
+	}
+
+	@Override
+	public boolean isKostentraeger()
+	{
+	return this.kostenTraeger != null ? true : false;
+	}
 
 }
