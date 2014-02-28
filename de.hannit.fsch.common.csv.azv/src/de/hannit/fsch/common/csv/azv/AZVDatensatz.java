@@ -15,7 +15,9 @@ public class AZVDatensatz implements IAZVDatensatz
 public static final int PERSONALNUMMER_VORSTAND = 120026;
 
 private	int personalNummer = 0;
+private boolean pnrNachgetragen = false;
 private String strTeam = null;
+private String strNachname = null;
 private	int iTeam = 9;
 private Date berichtsMonat;
 private java.sql.Date berichtsMonatSQL;
@@ -131,7 +133,9 @@ private Calendar cal = Calendar.getInstance();
 			}	
 		}
 	}
-
+	public boolean personalNummerNachgetragen(){return pnrNachgetragen;}
+	public void setpersonalNummerNachgetragen(boolean incoming){this.pnrNachgetragen = incoming;}
+	
 	public boolean existsMitarbeiter(){return existsMitarbeiter;}
 	public void setExistsMitarbeiter(boolean exists){this.existsMitarbeiter = exists;}
 
@@ -142,6 +146,12 @@ private Calendar cal = Calendar.getInstance();
 	{
 	return berichtsMonatSQL;
 	}
+
+	@Override
+	public String getNachname() {return strNachname;}
+
+	@Override
+	public void setNachname(String nachname) {this.strNachname = nachname;}
 	
 	
 }

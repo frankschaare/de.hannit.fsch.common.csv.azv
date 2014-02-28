@@ -17,6 +17,9 @@ public void setPersonalNummer(int personalNummer);
 public String getTeam();
 public void setTeam(String team);
 
+public String getNachname();
+public void setNachname(String nachname);
+
 public Date getBerichtsMonat();
 public void setBerichtsMonat(Date berichtsMonat);
 
