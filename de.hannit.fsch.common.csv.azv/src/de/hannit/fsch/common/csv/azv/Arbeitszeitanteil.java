@@ -34,7 +34,10 @@ private double bruttoAufwand = 0;
 	}
 	
 	public double getBruttoAufwand() {return bruttoAufwand;}
-	public void setBruttoAufwand(double bruttoAufwand){this.bruttoAufwand = bruttoAufwand;}
+	public void setBruttoAufwand(double incoming)
+	{
+	this.bruttoAufwand = incoming;
+	}
 	
 	public double getAnteilGemeinkosten()
 	{
