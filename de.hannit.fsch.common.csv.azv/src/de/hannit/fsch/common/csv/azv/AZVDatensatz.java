@@ -14,12 +14,16 @@ public class AZVDatensatz implements IAZVDatensatz
 {
 public static final int PERSONALNUMMER_VORSTAND = 120026;
 
+private	int rowCount = 0;
 private	int personalNummer = 0;
 private boolean pnrNachgetragen = false;
 private String strTeam = null;
 private String strNachname = null;
+private String userName = null;
 private	int iTeam = 9;
 private Date berichtsMonat;
+private String berichtsMonatAsString = null;
+private String berichtsJahrAsString = null;
 private java.sql.Date berichtsMonatSQL;
 private String kostenStelle = null;
 private String kostenstellenBeschreibung = null;
@@ -40,7 +44,18 @@ private Calendar cal = Calendar.getInstance();
 
 	}
 	
-	public int getPersonalNummer(){return this.personalNummer;}
+	public String getUserName(){return userName;}
+	public void setUserName(String userName){this.userName = userName;}
+
+	public void setBerichtsMonatAsString(String berichtsMonatAsString){this.berichtsMonatAsString = berichtsMonatAsString;}
+	public String getBerichtsMonatAsString(){return this.berichtsMonatAsString;}
+	public void setBerichtsJahrAsString(String berichtsJahrAsString) 
+	{
+	this.berichtsJahrAsString = berichtsJahrAsString;
+	}
+	public String getBerichtsJahrAsString(){return this.berichtsJahrAsString;}
+	
+	public int getPersonalNummer(){return (this.personalNummer != 0) ? this.personalNummer : 0;}
 	public void setPersonalNummer(int personalNummer){this.personalNummer = personalNummer;}
 
 	public Date getBerichtsMonat(){return this.berichtsMonat;}
@@ -98,7 +113,7 @@ private Calendar cal = Calendar.getInstance();
 	public void setSource(String source){this.source = source;}
 
 	@Override
-	public String getTeam(){return this.strTeam;}
+	public String getTeam(){return (this.strTeam != null) ? this.strTeam : "";}
 
 	@Override
 	public void setTeam(String team)
@@ -152,6 +167,50 @@ private Calendar cal = Calendar.getInstance();
 
 	@Override
 	public void setNachname(String nachname) {this.strNachname = nachname;}
+
+	@Override
+	public void setKostenArt(String incoming)
+	{
+	String kostenArt = incoming;	
+	String beschreibung = "";
+	
+		if (kostenArt.length() > 0)
+		{
+			if (kostenArt.contains(";"))
+			{
+			String[] parts = kostenArt.split(";");
+			kostenArt = parts[0];
+			beschreibung = parts[1];
+			}
+			
+			switch (kostenArt.length())
+			{
+			case 4:
+			setKostenstelle(kostenArt);
+			this.kostenstellenBeschreibung = beschreibung;
+			break;
+
+			default:
+			setKostentraeger(kostenArt);	
+			this.kostenTraegerBeschreibung = beschreibung;
+			break;
+			}
+
+		}
+		
+	}
+
+	@Override
+	public int getRowCount()
+	{
+	return this.rowCount;
+	}
+
+	@Override
+	public void setRowCount(int incoming)
+	{
+	this.rowCount = incoming;	
+	}
 	
 	
 }

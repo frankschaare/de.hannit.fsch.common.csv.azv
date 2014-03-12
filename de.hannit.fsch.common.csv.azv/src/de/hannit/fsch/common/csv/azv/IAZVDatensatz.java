@@ -11,6 +11,9 @@ import java.util.Date;
  */
 public interface IAZVDatensatz
 {
+public int getRowCount();
+public void setRowCount(int incoming);
+
 public int getPersonalNummer();
 public void setPersonalNummer(int personalNummer);
 
@@ -22,6 +25,15 @@ public void setNachname(String nachname);
 
 public Date getBerichtsMonat();
 public void setBerichtsMonat(Date berichtsMonat);
+public void setBerichtsMonatAsString(String berichtsMonat);
+public String getBerichtsMonatAsString();
+public void setBerichtsJahrAsString(String berichtsJahr);
+public String getBerichtsJahrAsString();
+
+public String getUserName();
+public void setUserName(String username);
+
+public void setKostenArt(String kostenArt);
 
 public String getKostenstelle();
 public void setKostenstelle(String kostenStelle);
