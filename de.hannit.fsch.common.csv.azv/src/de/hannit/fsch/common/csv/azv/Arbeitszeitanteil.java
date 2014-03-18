@@ -121,7 +121,7 @@ private double bruttoAufwand = 0;
 	@Override
 	public String getKostenstelleOderKostentraegerLang()
 	{
-	return this.kostenStelle != null ? this.kostenStelle : this.kostenTraeger;
+	return this.kostenStelle != null ? this.kostenStelle + ": " + getKostenStelleBezeichnung() : this.kostenTraeger + ": " + getKostenTraegerBezeichnung();
 	}
 
 	@Override
