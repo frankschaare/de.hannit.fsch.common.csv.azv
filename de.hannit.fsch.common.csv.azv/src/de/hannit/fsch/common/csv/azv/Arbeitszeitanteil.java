@@ -113,10 +113,24 @@ private double bruttoAufwand = 0;
 	public void setProzentanteil(int prozentAnteil){this.prozentAnteil = prozentAnteil;}
 
 	@Override
-	public int getITeam(){return this.iTeam;}
+	public int getITeam(){return (this.iTeam != 9) ? this.iTeam : 0;}
 
 	@Override
-	public void setITeam(int teamNR){this.iTeam = teamNR;}
+	public void setITeam(int teamNR)
+	{ 
+		/*
+		 * Der OS/ECM Webservice liefert statt bisher TeamNR 0 für den Vorstand jetzt 9
+		 * Die 9 wird daher auf 0 umgesetzt 
+		 */
+		if (teamNR == 9)
+		{
+		this.iTeam = 0;	
+		}
+		else
+		{
+		this.iTeam = teamNR;
+		}
+	}
 
 	@Override
 	public String getKostenstelleOderKostentraegerLang()
